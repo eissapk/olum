@@ -1,0 +1,38 @@
+{
+  "name": "pk",
+  "version": "1.0.0",
+  "description": "The VanillaJS developer’s platform.",
+  "main": "dist/pk.js",
+  "directories": {
+    "dist": "dist"
+  },
+  "scripts": {
+    "build": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eissapk/pk.git"
+  },
+  "keywords": [
+    "npm",
+    "pk",
+    "pkjs",
+    "vanilla",
+    "spa"
+  ],
+  "author": "Eissa Saber",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eissapk/pk/issues"
+  },
+  "homepage": "https://github.com/eissapk/pk#readme",
+  "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/preset-env": "^7.14.7",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-header": "^2.0.9",
+    "gulp-uglify": "^3.0.2"
+  }
+}

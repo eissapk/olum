@@ -1,1 +1,7 @@
 .gitignore
+gulpfile.js
+src
+node_modules
+.editorconfig
+babe.config.json
+package-lock.json
