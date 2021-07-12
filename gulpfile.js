@@ -6,7 +6,7 @@ const header = require('gulp-header');
 
 const comment = 
 `/**
-* @name Pk.js
+* @name Olum.js
 * @version 1.0.0
 * @copyright 2021
 * @author Eissa Saber
@@ -16,13 +16,13 @@ const comment =
 
 gulp.task("compile", () => {
   return gulp
-    .src("./src/lib/pk.js")
-    .pipe(concat("pk.min.js"))
+    .src("./src/lib/olum.js")
+    .pipe(concat("olum.min.js"))
     .pipe(babel({ presets: ["@babel/preset-env"] }))
     .pipe(uglify())
     .pipe(header(comment))
     .pipe(gulp.dest("dist"));
 });
-gulp.task("copy", () => gulp.src("./src/lib/pk.js").pipe(gulp.dest("dist")));
+gulp.task("copy", () => gulp.src("./src/lib/olum.js").pipe(gulp.dest("dist")));
 
 gulp.task("default", gulp.series(["compile", "copy"]));

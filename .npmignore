@@ -1,7 +1,7 @@
 .gitignore
 gulpfile.js
-src
+src/lib
 node_modules
 .editorconfig
-babe.config.json
+babel.config.json
 package-lock.json

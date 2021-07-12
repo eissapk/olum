@@ -1,8 +1,8 @@
 {
-  "name": "pk",
-  "version": "1.0.0",
+  "name": "olum",
+  "version": "1.0.1",
   "description": "The VanillaJS developer’s platform.",
-  "main": "dist/pk.js",
+  "main": "dist/olum.js",
   "directories": {
     "dist": "dist"
   },
@@ -11,21 +11,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eissapk/pk.git"
+    "url": "git+https://github.com/eissapk/olum.git"
   },
   "keywords": [
     "npm",
-    "pk",
-    "pkjs",
+    "olum",
+    "olumjs",
     "vanilla",
     "spa"
   ],
   "author": "Eissa Saber",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/eissapk/pk/issues"
+    "url": "https://github.com/eissapk/olum/issues"
   },
-  "homepage": "https://github.com/eissapk/pk#readme",
+  "homepage": "https://github.com/eissapk/olum#readme",
   "devDependencies": {
     "@babel/core": "^7.14.6",
     "@babel/preset-env": "^7.14.7",

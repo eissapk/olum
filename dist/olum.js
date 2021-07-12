@@ -1,5 +1,5 @@
 /**
- * @name Pk.js
+ * @name Olum.js
  * @version 1.0.0
  * @copyright 2021
  * @author Eissa Saber
@@ -19,11 +19,11 @@
    */
   const global = typeof self !== "undefined" ? self : this;
   const isDebugging = false;
-  const debugStr = "Pk [warn]:";
+  const debugStr = "Olum [warn]:";
   const quotes = str => "“" + str + "”";
   const devtoolHint = `${debugStr} ${quotes("devtool extension")} is not installed!
   \nto install it please download ${quotes("devtool.js")} from the official repo
-  \n@ https://github.com/eissapk/pkjs/blob/develop/devtool.js
+  \n@ https://github.com/eissapk/Olum/blob/master/devtool.js
   \nand save it in the root of your project`;
   const isDev = () => !!["localhost", "127.0.0.1"].includes(location.hostname);
   const isObj = obj => !!(obj !== null && typeof obj === "object");
@@ -114,7 +114,7 @@
   /**
    * Replace string with values
    *
-   * @example setTemp(`<div>{{name}}</div>`, {name:"pkjs"})
+   * @example setTemp(`<div>{{name}}</div>`, {name:"Olumjs"})
    */
   const setTemp = (temp, obj, delimit = ["{{", "}}"]) => {
     for (let key in obj) {
@@ -140,7 +140,7 @@
   };
 
   /**
-   * @example origin.method(url, { body: {name:"pkjs"},"Content-Type": "application/json" }).then(console.log).catch(console.error)
+   * @example origin.method(url, { body: {name:"Olumjs"},"Content-Type": "application/json" }).then(console.log).catch(console.error)
    */
   class Origin {
     constructor() {
@@ -194,7 +194,7 @@
   }
 
   /**
-   * @example new Pk({
+   * @example new Olum({
       mode: "history",
       root: "/",
       el: "#app",
@@ -202,7 +202,7 @@
       routes: [{ path: "/", comp: Home }],
     });
    */
-  class Pk {
+  class Olum {
     routes = [];
     views = [];
     pushStateAPI = !!global.history.pushState;
@@ -215,7 +215,7 @@
       err,
       routes
     }) {
-      if (!(this instanceof Pk)) console.error(`${debugStr} can't invoke ${quotes("Pk constructor")} without new keyword`);
+      if (!(this instanceof Olum)) console.error(`${debugStr} can't invoke ${quotes("Olum constructor")} without new keyword`);
       this.setMode(mode);
       this.setRoot(root);
       this.setPrefix(prefix);
@@ -464,7 +464,7 @@
 
     inject(View) {
       if (!View || typeof View != "function") {
-        console.error(`${debugStr} ${quotes("View argument")} is missing or it's not a constructor function! @ Pk.inject(View)`);
+        console.error(`${debugStr} ${quotes("View argument")} is missing or it's not a constructor function! @ Olum.inject(View)`);
       } else {
         const view = new View();
         const entry = view.data();
@@ -578,7 +578,7 @@
   }
 
   return {
-    Pk,
+    Olum,
     Service,
     Origin,
     $,
