@@ -23,7 +23,7 @@
   const quotes = str => "“" + str + "”";
   const devtoolHint = `${debugStr} ${quotes("devtool extension")} is not installed!
   \nto install it please download ${quotes("devtool.js")} from the official repo
-  \n@ https://github.com/eissapk/Olum/blob/master/devtool.js
+  \n@ https://github.com/eissapk/olum/blob/master/devtool.js
   \nand save it in the root of your project`;
   const isDev = () => !!["localhost", "127.0.0.1"].includes(location.hostname);
   const isObj = obj => !!(obj !== null && typeof obj === "object");
@@ -114,7 +114,7 @@
   /**
    * Replace string with values
    *
-   * @example setTemp(`<div>{{name}}</div>`, {name:"Olumjs"})
+   * @example setTemp(`<div>{{name}}</div>`, {name:"olumjs"})
    */
   const setTemp = (temp, obj, delimit = ["{{", "}}"]) => {
     for (let key in obj) {
@@ -140,7 +140,7 @@
   };
 
   /**
-   * @example origin.method(url, { body: {name:"Olumjs"},"Content-Type": "application/json" }).then(console.log).catch(console.error)
+   * @example origin.method(url, { body: {name:"olumjs"},"Content-Type": "application/json" }).then(console.log).catch(console.error)
    */
   class Origin {
     constructor() {
