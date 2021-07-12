@@ -1,6 +1,6 @@
 .gitignore
 gulpfile.js
-src/lib
+src
 node_modules
 .editorconfig
 babel.config.json
