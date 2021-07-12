@@ -16,13 +16,13 @@ const comment =
 
 gulp.task("compile", () => {
   return gulp
-    .src("./src/lib/olum.js")
+    .src("./src/olum.js")
     .pipe(concat("olum.min.js"))
     .pipe(babel({ presets: ["@babel/preset-env"] }))
     .pipe(uglify())
     .pipe(header(comment))
     .pipe(gulp.dest("dist"));
 });
-gulp.task("copy", () => gulp.src("./src/lib/olum.js").pipe(gulp.dest("dist")));
+gulp.task("copy", () => gulp.src("./src/olum.js").pipe(gulp.dest("dist")));
 
 gulp.task("default", gulp.series(["compile", "copy"]));
