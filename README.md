@@ -1,4 +1,4 @@
-<p align="center"><img width="100" src="https://www.eissa.xyz/olum/logo.png" alt="Olum logo"></p>
+<p align="center"><img width="100" src="https://eissa.xyz/olumjs/logo.png" alt="Olum logo"></p>
 
 # Olumjs
 `The VanillaJS developer’s platform.`
@@ -18,6 +18,7 @@ Olumjs is built for ignoring anything but vanilla javascript.
 * Reusable Components
 * State Management System
 * Routing (SPA)
+* A size of `14kb` including (router, state management, other helpers)
 * Coding with Vanilla JS `(the best feature)`
 
 > You don't need to learn a new library or a framework if you already know vanilla js, and this is the reason behind Olumjs creation.
