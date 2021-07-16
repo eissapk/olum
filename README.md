@@ -1,4 +1,4 @@
-<p align="center"><img width="100" src="https://eissa.xyz/olumjs/logo.png" alt="Olum logo"></p>
+<p align="center"><img width="100" src="https://olumjs.github.io/logo.png" alt="Olum logo"></p>
 <p align="center">
  <a href="https://www.npmjs.com/package/olum" target="_blank"><img src="https://img.shields.io/npm/v/olum" alt="npm"></a>
  <img src="https://img.shields.io/npm/dm/olum" alt="npm">
@@ -8,7 +8,7 @@
 # Olumjs
 `The VanillaJS developer’s platform.`
 
-See [Documentation](https://github.com/eissapk/olum/wiki)
+See [Documentation](https://github.com/olumjs/olum/wiki)
 
 Are you a Vanilla JS fan? 
 

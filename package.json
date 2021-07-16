@@ -1,6 +1,6 @@
 {
   "name": "olum",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "The VanillaJS developer’s platform.",
   "main": "dist/olum.js",
   "directories": {
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eissapk/olum.git"
+    "url": "git+https://github.com/olumjs/olum.git"
   },
   "keywords": [
     "npm",
@@ -23,9 +23,9 @@
   "author": "Eissa Saber",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/eissapk/olum/issues"
+    "url": "https://github.com/olumjs/olum/issues"
   },
-  "homepage": "https://github.com/eissapk/olum#readme",
+  "homepage": "https://github.com/olumjs/olum#readme",
   "devDependencies": {
     "@babel/core": "^7.14.6",
     "@babel/preset-env": "^7.14.7",
