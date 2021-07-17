@@ -1,11 +1,11 @@
 /**
  * @name Olum.js
- * @version 0.0.5
+ * @version 0.0.6
  * @copyright 2021
  * @author Eissa Saber
  * @license MIT
  */
-((root, factory) => {
+ ((root, factory) => {
   if (typeof module === "object" && module.exports) module.exports = factory();
   else if (typeof define === "function" && define.amd) define(factory);
   else {
@@ -23,7 +23,7 @@
   const quotes = str => "“" + str + "”";
   const devtoolHint = `${debugStr} ${quotes("devtool extension")} is not installed!
   \nto install it please download ${quotes("devtool.js")} from the official repo
-  \n@ https://github.com/eissapk/olum/blob/master/devtool.js
+  \n@ https://raw.githubusercontent.com/olumjs/olum-devtool/master/devtool.js
   \nand save it in the root of your project`;
   const isDev = () => !!["localhost", "127.0.0.1"].includes(location.hostname);
   const isObj = obj => !!(obj !== null && typeof obj === "object");
@@ -260,7 +260,7 @@
         this.prefix = prefix;
       } else {
         this.prefix = null;
-        console.warn(`${debugStr} couldn't find ${quotes("prefix property")} @ router instance. \nfalling back to default component tag e.g. <ComponentName/>`);
+        debug(`${debugStr} couldn't find ${quotes("prefix property")} @ router instance. \nfalling back to default component tag e.g. <ComponentName/>`, "warn");
       }
     }
 
@@ -269,7 +269,7 @@
         this.root = root;
       } else {
         this.root = "/";
-        console.warn(`${debugStr} couldn't find ${quotes("root property")} @ router instance. \nfalling back to default value: ${quotes("/")}`);
+        debug(`${debugStr} couldn't find ${quotes("root property")} @ router instance. \nfalling back to default value: ${quotes("/")}`, "warn");
       }
     }
 
@@ -278,7 +278,7 @@
         this.err = this.resolve(err);
       } else {
         this.err = null;
-        console.warn(`${debugStr} couldn't find ${quotes("err property")} @ router instance. \nfalling back to default 404 page`);
+        debug(`${debugStr} couldn't find ${quotes("err property")} @ router instance. \nfalling back to default 404 page`, "warn");
       }
     }
 
@@ -287,11 +287,11 @@
         if (this.pushStateAPI) this.mode = mode;
         else {
           this.mode = "hash"; // force hash
-          console.warn(`${debugStr} mode is set to ${quotes("hash")} \n${quotes("history")} is not supported!`);
+          debug(`${debugStr} mode is set to ${quotes("hash")} \n${quotes("history")} is not supported!`, "warn");
         }
       } else {
         this.mode = this.pushStateAPI ? "history" : "hash"; // default
-        console.warn(`${debugStr} couldn't find ${quotes("mode property")} @ router instance. \nfalling back to available default mode: ${quotes(this.mode)}`);
+        debug(`${debugStr} couldn't find ${quotes("mode property")} @ router instance. \nfalling back to available default mode: ${quotes(this.mode)}`, "warn");
       }
     }
 
@@ -345,7 +345,6 @@
 
         if (isDef(route)) {
           route.cb(); // invokes inject(view)
-          this.active(route);
         } else {
           if (isDef(this.err)) {
             const err = this.routes.find(route => route.path === this.err);
@@ -422,12 +421,12 @@
       }
     }
 
-    active(route) {
+    active(path_b) {
       const links = $("[to]", true);
       if (isFullArr(links)) {
         links.forEach(link => {
-          const path = this.resolve(link.getAttribute("to"));
-          if (path === route.path) {
+          const path_a = this.resolve(link.getAttribute("to"));
+          if (path_a === path_b) {
             link.classList.add("active");
           } else {
             link.classList.remove("active");
@@ -482,6 +481,7 @@
           this.appMarkup.innerHTML = viewObj.template;
           // js
           setTimeout(() => {
+            this.active(this.getRoute()); // add active class to current route link tag
             this.to(); // enables to attribute e.g. <a to="/">Home</a>
             for (let key in viewObj.script) viewObj.script[key]();
           }, 0);
@@ -492,7 +492,7 @@
             const Devtool = module.default;
             const instance = new Devtool(this.appMarkup, this.rootCompName);
             init(instance);
-          }).catch(() => console.warn(devtoolHint));
+          }).catch(() => debug(devtoolHint, "warn"));
         } else {
           init();
         }
