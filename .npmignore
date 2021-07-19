@@ -5,3 +5,4 @@ node_modules
 .editorconfig
 babel.config.json
 package-lock.json
+docs
