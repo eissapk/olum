@@ -6,7 +6,7 @@
 </p>
 
 # Olumjs
-`The VanillaJS developer’s platform.`
+The VanillaJS developer’s platform.
 
 See [Documentation](https://olumjs.github.io/docs)
 
