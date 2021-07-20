@@ -7,7 +7,7 @@ const header = require('gulp-header');
 const comment = 
 `/**
 * @name Olum.js
-* @version 0.0.6
+* @version 0.0.7
 * @copyright 2021
 * @author Eissa Saber
 * @license MIT

@@ -1,6 +1,6 @@
 /**
  * @name Olum.js
- * @version 0.0.6
+ * @version 0.0.7
  * @copyright 2021
  * @author Eissa Saber
  * @license MIT
@@ -203,6 +203,7 @@
     });
    */
   class Olum {
+    isFrozen = false;
     routes = [];
     views = [];
     pushStateAPI = !!global.history.pushState;
@@ -326,6 +327,14 @@
       return str;
     }
 
+    freeze() {
+      this.isFrozen = true;
+    }
+    
+    unfreeze(){
+      this.isFrozen = false;
+    }
+
     listen() {
       global.on("popstate", () => {
         debugLib(["Dispatched Popstate", this.routes]);
@@ -344,7 +353,7 @@
         });
 
         if (isDef(route)) {
-          route.cb(); // invokes inject(view)
+          if (!this.isFrozen) route.cb(); // invokes inject(view)
         } else {
           if (isDef(this.err)) {
             const err = this.routes.find(route => route.path === this.err);
@@ -379,6 +388,7 @@
     }
 
     navigate(path) {
+      this.unfreeze();
       path = this.resolve(path);
       if (this.mode === "history") {
         global.history.pushState({}, "", path);
