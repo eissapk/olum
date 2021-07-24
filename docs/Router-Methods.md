@@ -37,7 +37,7 @@ olum.navigate("/about");
 > The current route link has `.active` class name, so you can use this class later in styling
 
 ### Freeze & unfreeze router
-> In some case you will be needing to stop your web app page from rendering if pushed route 
+> In some cases you will be needing to stop your web app page from rendering if you pushed a route 
 
 ```javascript
 import { Olum } from "olum";
