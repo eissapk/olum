@@ -1,6 +1,6 @@
 /**
  * @name Olum.js
- * @version 0.0.7
+ * @version 0.0.8
  * @copyright 2021
  * @author Eissa Saber
  * @license MIT
@@ -205,7 +205,6 @@
   class Olum {
     isFrozen = false;
     routes = [];
-    views = [];
     pushStateAPI = !!global.history.pushState;
 
     constructor({
@@ -227,7 +226,6 @@
       } else if (!this.hasRoutes(routes)) {
         console.error(`${debugStr} couldn't find ${quotes("routes property")} @ router instance or it's empty. \nmake sure that ${quotes("routes property")} has components \ne.g. routes = [{ path: "/", comp: Home }]`);
       } else {
-        this.buildStyles();
         this.popStateEvent = new PopStateEvent("popstate");
         this.listen();
       }
@@ -247,10 +245,7 @@
 
     hasRoutes(routes) {
       if (!!routes && isFullArr(routes)) {
-        routes.forEach(route => {
-          this.views.push(route.comp);
-          this.addRoute(route.path, route.comp);
-        });
+        routes.forEach(route => this.addRoute(route.path, route.comp));
         return true;
       }
       return false;
@@ -487,6 +482,8 @@
           };
           // final component (View)
           const viewObj = this.merge(label);
+          // css
+          this.buildStyles(viewObj.style);
           // html
           this.appMarkup.innerHTML = viewObj.template;
           // js
@@ -510,23 +507,15 @@
       }
     }
 
-    buildStyles() {
-      const styles = [];
-      this.views.forEach(View => {
-        const view = new View();
-        const entry = view.data();
-        const compsArr = this.buildTree(entry);
-        const entryStyle = entry.style || "";
-        styles.push(entryStyle); // push view style
-        compsArr.forEach(comp => {
-          if (hasProp(comp.child, "data")) {
-            const compStyle = comp.child.data.style || "";
-            styles.push(compStyle.trim()); // push children styles
-          }
-        });
-      });
-      const cleanStyles = [...new Set(styles)];
-      document.head.insertAdjacentHTML("beforeend", `<style>${cleanStyles.join("")}</style>`); // override global styling
+    buildStyles(css) {
+      const id = "olum_style_tag";
+      let styleTag = document.getElementById(id);
+      if (!styleTag) {
+        styleTag = document.createElement("style");
+        styleTag.id = id;
+        document.head.append(styleTag);
+      }
+      styleTag.innerHTML = css;
     }
 
     merge({
@@ -535,6 +524,7 @@
     }) {
       // parent (view) 
       let template = entry.template || "";
+      let style = entry.style || "";
       const script = {};
       !!(entry.render) ? (script[0] = entry.render) : null;
 
@@ -543,17 +533,20 @@
         compsArr.forEach((comp, index) => {
           const data = comp.child.data;
           const html = data.template || "";
+          const css = data.style || "";
           const js = data.render || null;
           const name = this.prefix !== null ? this.prefix + "-" + data.name : data.name;
           const regex = new RegExp(`<(${name}\\s{0,})\\/>`, "gi"); // detect components e.g. <App-AddTodo /> or <AddTodo />
 
           template = template.replace(regex, html);
+          style += css;
           if (js !== null) script[index + 1] = js;
         });
       }
 
       return {
         template,
+        style,
         script,
       };
     }

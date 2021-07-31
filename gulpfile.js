@@ -3,11 +3,12 @@ const babel = require("gulp-babel");
 const uglify = require("gulp-uglify");
 const concat = require("gulp-concat");
 const header = require('gulp-header');
+const pkgJSON = require("./package.json");
 
 const comment = 
 `/**
 * @name Olum.js
-* @version 0.0.7
+* @version ${pkgJSON.version}
 * @copyright 2021
 * @author Eissa Saber
 * @license MIT
