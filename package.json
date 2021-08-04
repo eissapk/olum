@@ -1,6 +1,6 @@
 {
   "name": "olum",
-  "version": "0.0.8",
+  "version": "0.1.0",
   "description": "The VanillaJS developer’s platform.",
   "main": "dist/olum.js",
   "directories": {

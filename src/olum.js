@@ -1,6 +1,6 @@
 /**
  * @name Olum.js
- * @version 0.0.8
+ * @version 0.1.0
  * @copyright 2021
  * @author Eissa Saber
  * @license MIT
@@ -139,6 +139,69 @@
     } else this.style.height = "0";
   };
 
+  // translations
+  class Localize {
+    key = "tolang";
+
+    constructor(dictionary, rtlLangs) {
+      this.dictionary = dictionary;
+      this.rtlLangs = rtlLangs;
+      this.init();
+    }
+
+    init() {
+      this.detect();
+      const _this = this;
+      String.prototype.trans = function trans() {
+        const str = this;
+        const locales = _this.dictionary;
+        const lang = _this.current();
+        const langObj = locales[lang];
+        const err = `"${str}" property is misspelled or missed at "src/locales/${lang}.js"`;
+        let translatedStr;
+  
+        if (typeof locales != "undefined" && typeof langObj != "undefined") {
+          for (let key in langObj) {
+            if (str === key) translatedStr = langObj[key];
+          }
+        } else {
+          debug("locales or langObj are not defined! @ String.prototype.trans", "warn");
+        }
+  
+        return translatedStr || err;
+      };
+      this.tolang();
+    };
+    
+    detect() {
+      const container = $("body");
+      if (container) {
+        if (this.rtlLangs.includes(this.current())) container.classList.add("RTL");
+        else container.classList.remove("RTL");
+      }
+    }
+
+    current() {
+      return localStorage.getItem(this.key) || "en";
+    }
+
+    tolang() {
+      document.on("click", e => {
+        if (e.target.hasAttribute(this.key)) {
+          // disable href in anchor
+          if (e.target.nodeName === "A") e.target.setAttribute("href", "javascript:void(0)");
+          // disable icons in links
+          [...e.target.children].forEach(icon => (icon.style.pointerEvents = "none"));
+          // update current lang
+          const lang = e.target.getAttribute(this.key);
+          localStorage.setItem(this.key, lang);
+          location.reload();
+        }
+      });
+    }
+
+  }
+  
   /**
    * @example origin.method(url, { body: {name:"olumjs"},"Content-Type": "application/json" }).then(console.log).catch(console.error)
    */
@@ -227,6 +290,7 @@
         console.error(`${debugStr} couldn't find ${quotes("routes property")} @ router instance or it's empty. \nmake sure that ${quotes("routes property")} has components \ne.g. routes = [{ path: "/", comp: Home }]`);
       } else {
         this.popStateEvent = new PopStateEvent("popstate");
+        this.viewLoaded = new CustomEvent("viewLoaded", { detail: {}, bubbles: true, cancelable: true, composed: false });
         this.listen();
       }
     }
@@ -490,7 +554,18 @@
           setTimeout(() => {
             this.active(this.getRoute()); // add active class to current route link tag
             this.to(); // enables to attribute e.g. <a to="/">Home</a>
-            for (let key in viewObj.script) viewObj.script[key]();
+            const scriptKeysArr = Object.keys(viewObj.script);
+            const recursive = (num = 0) => {
+              viewObj.script[scriptKeysArr[num]]();
+              if (num === scriptKeysArr.length - 1) {
+                if (isDef(this.viewLoaded)) {
+                  dispatchEvent(this.viewLoaded);
+                  debugLib("viewLoaded");
+                }
+              }
+              if (num + 1 <= scriptKeysArr.length - 1) recursive(num + 1);
+            };
+            recursive();
           }, 0);
         }
 
@@ -587,6 +662,7 @@
     $,
     debug,
     setTemp,
+    Localize
   };
 
 });
