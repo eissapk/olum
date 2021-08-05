@@ -1,6 +1,6 @@
 /**
  * @name Olum.js
- * @version 0.1.0
+ * @version 0.1.1
  * @copyright 2021
  * @author Eissa Saber
  * @license MIT
@@ -143,7 +143,7 @@
   class Localize {
     key = "tolang";
 
-    constructor(dictionary, rtlLangs) {
+    constructor(dictionary, rtlLangs = []) {
       this.dictionary = dictionary;
       this.rtlLangs = rtlLangs;
       this.init();
@@ -174,10 +174,16 @@
     };
     
     detect() {
-      const container = $("body");
-      if (container) {
-        if (this.rtlLangs.includes(this.current())) container.classList.add("RTL");
-        else container.classList.remove("RTL");
+      const html = $("html");
+      const body = $("body");
+      if (html && body) {
+        if (this.rtlLangs.includes(this.current())) {
+          body.classList.add("RTL");
+          html.dir = "rtl";
+        } else {
+          body.classList.remove("RTL");
+          html.dir = "";
+        }
       }
     }
 
