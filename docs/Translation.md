@@ -18,6 +18,8 @@ export default {
   desc: "منصة مطوري فانيلا جافاسكربت"
 };
 ```
+### Hint
+`desc` is the key that we will use later in the code and its value is the actual translation phrase that will be shown in the UI
 
 ### Registering dictionaries
 > The whole setup of the translations will be in `src/app.mjs`
@@ -33,16 +35,16 @@ import ar from "./locales/ar.js";
 new Localize({ en, ar }, ["ar"]);
 ```
 * Localize class takes two arguments:
-  * First argument is an object `{ en, ar }` with all dictionaries imported from `src/locales/lang.js`
+  * First argument is an object `{ en, ar }` with all dictionaries imported from `src/locales`
   * Second argument is an array `["ar"]` with all languages codes that are `RTL`, this array can be omitted if you don't have `RTL` language
 
-### Languages buttons
-> Inside any component we can add these langs buttons below
+### Switching to a specific language
+> Inside any component we can add these languages buttons below, it's kinda similar to router links
 ```html
 <button tolang="ar">العربية</button> 
 <button tolang="en">English</button>
 ```
-* You will realize that we have `tolang` attribute with the value of the language code
+* You will realize that we have `tolang` attribute with the value of the language code `en` or `ar`
 * When clicking on these buttons your application should be switched to the clicked language
 
 ### Using `trans` method
@@ -50,14 +52,15 @@ new Localize({ en, ar }, ["ar"]);
 > use it as follows inside script tag
 ```html
 <script>
-  console.log("desc".trans());
+  console.log("desc".trans()); 
 </script>
 ```
 
-> use it as follows inside template tag
+> use it as follows inside template tag, you must add it inside template literal placeholder `${}`
 ```html
 <template>
   <p>${"desc".trans()}</p>
 </template>
-
 ```
+
+* `"desc".trans()` will print `The VanillaJS developer’s platform.` or `منصة مطوري فانيلا جافاسكربت` based on the current language
