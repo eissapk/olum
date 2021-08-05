@@ -127,3 +127,9 @@ export const api = new API();
 
 ### Hint
 > You may ask your self how we can access `event` propery or `trigger` method even we didn't define them in the `API` service, Remember that we Inherit all `props` & `method` from `Service` class that we imported from `olum` library, so this way we have access on its stuff.
+
+### ViewLoaded Event
+> You may want to do some functionalities after loading a specific view/route in order to achieve that just listen to this event below:
+```javascript
+window.addEventListener("viewLoaded", e => console.log("view loaded!"));
+```
