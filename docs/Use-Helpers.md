@@ -1,5 +1,14 @@
 > Instead of using javascript native long methods you can use these methods below
 
+`Now helpers are in a seperated package called olum-helpers, You need to install it via 'npm i olum-helpers' or use it via unpkg`
+
+```html
+<script src="https://unpkg.com/olum-helpers@latest/dist/olum-helpers.min.js"></script>
+```
+```javascript
+import { $, debug, setTemp, Service, Origin, Localize } from "olum-helpers";
+```
+
 ### Shorthand
 * Replace `addEventListener` with `on`
 * Replace `removeEventListener` with `off`
@@ -16,7 +25,7 @@
 > Use `debug` method which works in dev mode only so you don't need to comment your logs in production
 
 ```javascript
-import { debug } from "olum";
+import { debug } from "olum-helpers";
 
 // debug(arguments, level);
 debug(1, "log") // prints 1 as console.log
@@ -31,7 +40,7 @@ debug(1, "error") // prints 1 as console.error, you can type err or error
 > Use `$` to select your nodes instead of `document.querySelector` and other stuff
 
 ```javascript
-import { $ } from "olum";
+import { $ } from "olum-helpers";
 
 $(".header") // returns 1st element
 $(".header", true) // returns array, because of true, if there is no element then it will return empty array as es6 do with querySelectorAll
@@ -43,14 +52,14 @@ $(elm).get("li", true) // returns array of li inside elm
 > Use `setTemp` to inject stuff in your string, default delimiters are `{{ }}`
 
 ```javascript
-import { setTemp } from "olum";
+import { setTemp } from "olum-helpers";
 
 // setTemp(<String>, <Object>, <Array>);
 setTemp(`<div>{{name}}</div>`, {name:"olumjs"}, ["[[","]]"]);
 ```
 
 #### toggle
-> Use `toggle` to toggle the element hight smoothly, you should add these styles `height: 0; overflow: hidden;` on your own to the element that will be toggled 
+> Use `toggle` to toggle the element hight smoothly
 
 ```javascript
 const btn = $(".btn");
@@ -63,11 +72,11 @@ btn.on("click", () => elm.toggle(0.6));
 > Use `Origin` for calling `APIs` just like `fetch` and `axios`
 
 ```javascript
-import { Origin } from "olum";
+import { Origin } from "olum-helpers";
 
 const origin = new Origin();
 
-origin.get(url, { body: {name:"olumjs"}, "Content-Type": "application/json" })
+origin.get(url, { body: {name:"olumjs"}, headers: {"Content-Type": "application/json"} })
   .then(console.log)
   .catch(console.error);
 ```
