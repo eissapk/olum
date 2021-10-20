@@ -1,6 +1,6 @@
 /**
  * @name Olum.js
- * @version 0.1.2
+ * @version 0.1.3
  * @copyright 2021
  * @author Eissa Saber
  * @license MIT
@@ -23,10 +23,6 @@
   const isDebugging = false;
   const debugStr = "Olum [warn]:";
   const quotes = str => "“" + str + "”";
-  const devtoolHint = `${debugStr} ${quotes("devtool extension")} is not installed!
-  \nto install it please download ${quotes("devtool.js")} from the official repo
-  \n@ https://raw.githubusercontent.com/olumjs/olum-devtool/master/devtool.js
-  \nand save it in the root of your project`;
   const isDev = () => !!["localhost", "127.0.0.1"].includes(location.hostname);
   const isObj = obj => !!(obj !== null && typeof obj === "object");
   const isFullArr = arr => !!(isObj(arr) && Array.isArray(arr) && arr.length);
@@ -155,10 +151,10 @@
 
     hasRootElm(el) {
       const appMarkup = document.querySelector(el);
-
       if (!!el && !!appMarkup) {
         this.rootCompName = el.replace(/\#|\./, "").cap();
         this.appMarkup = appMarkup;
+        global.olum = { rootCompName: this.rootCompName, el }; // for devtool
         return true;
       }
 
@@ -387,6 +383,52 @@
 
       return compsArr;
     }
+    
+    label(root, arr) {
+      const compAttrRegex = /(olum-component=[\"\']([^\"|\']*)[\"\'])|(olum-component)/gi;
+      const openingSelfClosingTagRegex = /<[a-z]+(>|.*?[^?]>)/gi;
+      const greaterCharRegex = /\>/gi;
+      const compsArr = [...arr];
+      const entry = root;
+  
+      // children
+      compsArr.forEach(comp => {
+        const name = comp.child.data.name || "undefined";
+        if (comp.child && comp.child.data && hasProp(comp.child.data, "template")) {
+          const data = comp.child.data;
+          // clean
+          data.template = data.template.replace(compAttrRegex, "");
+          // labeling
+          const compWrapper = data.template.match(openingSelfClosingTagRegex);
+          if (isFullArr(compWrapper)) {
+            data.template = data.template.replace(compWrapper[0], compWrapper[0].replace(greaterCharRegex, ` olum-component="${name}">`));
+          }
+        }
+      });
+  
+      // parent (view)
+      if (entry.template) {
+        const name = entry.name || "undefined";
+        // clean
+        entry.template = entry.template.replace(compAttrRegex, "");
+        // labeling
+        const compWrapper = entry.template.match(openingSelfClosingTagRegex);
+        if (isFullArr(compWrapper)) {
+          entry.template = entry.template.replace(
+            compWrapper[0],
+            compWrapper[0].replace(greaterCharRegex, ` olum-component="${name}" router-view="${name}">`)
+          );
+        }
+      }
+  
+      // root (placeholder)
+      this.appMarkup.setAttribute("olum-component", this.rootCompName);
+  
+      return {
+        entry,
+        compsArr,
+      };
+    }
 
     inject(View) {
       if (!View || typeof View != "function") {
@@ -396,46 +438,34 @@
         const entry = view.data();
         const compsArr = this.buildTree(entry);
 
-        const init = instance => {
-          // labeling components
-          const label = instance ? instance.label(entry, compsArr) : {
-            entry,
-            compsArr
-          };
-          // final component (View)
-          const viewObj = this.merge(label);
-          // css
-          this.buildStyles(viewObj.style);
-          // html
-          this.appMarkup.innerHTML = viewObj.template;
-          // js
-          setTimeout(() => {
-            this.active(this.getRoute()); // add active class to current route link tag
-            this.to(); // enables to attribute e.g. <a to="/">Home</a>
-            const scriptKeysArr = Object.keys(viewObj.script);
-            const recursive = (num = 0) => {
-              viewObj.script[scriptKeysArr[num]]();
-              if (num === scriptKeysArr.length - 1) {
-                if (isDef(this.viewLoaded)) {
-                  dispatchEvent(this.viewLoaded);
-                  debugLib("viewLoaded");
-                }
+        // labeling components
+        const label = isDev() ? this.label(entry, compsArr) : {
+          entry,
+          compsArr
+        };
+        // final component (View)
+        const viewObj = this.merge(label);
+        // css
+        this.buildStyles(viewObj.style);
+        // html
+        this.appMarkup.innerHTML = viewObj.template;
+        // js
+        setTimeout(() => {
+          this.active(this.getRoute()); // add active class to current route link tag
+          this.to(); // enables to attribute e.g. <a to="/">Home</a>
+          const scriptKeysArr = Object.keys(viewObj.script);
+          const recursive = (num = 0) => {
+            viewObj.script[scriptKeysArr[num]]();
+            if (num === scriptKeysArr.length - 1) {
+              if (isDef(this.viewLoaded)) {
+                dispatchEvent(this.viewLoaded);
+                debugLib("viewLoaded");
               }
-              if (num + 1 <= scriptKeysArr.length - 1) recursive(num + 1);
-            };
-            recursive();
-          }, 0);
-        }
-
-        if (isDev()) {
-          import("/devtool.js").then(module => {
-            const Devtool = module.default;
-            const instance = new Devtool(this.appMarkup, this.rootCompName);
-            init(instance);
-          }).catch(() => debug(devtoolHint, "warn"));
-        } else {
-          init();
-        }
+            }
+            if (num + 1 <= scriptKeysArr.length - 1) recursive(num + 1);
+          };
+          recursive();
+        }, 0);
 
       }
     }
