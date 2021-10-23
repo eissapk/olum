@@ -14,7 +14,7 @@
   /* helpers */
   var global = typeof self !== "undefined" ? self : this;
   var debugStr = "Olum [warn]:";
-  var isDebugging = true;
+  var isDebugging = false;
 
   function isDef(val) {
     return (val !== undefined && val !== null);
