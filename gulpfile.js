@@ -19,7 +19,7 @@ gulp.task("compile", () => {
   return gulp
     .src("./src/olum.js")
     .pipe(concat("olum.min.js"))
-    .pipe(babel({ presets: ["@babel/preset-env"] }))
+    // .pipe(babel({ presets: ["@babel/preset-env"] }))
     .pipe(uglify())
     .pipe(header(comment))
     .pipe(gulp.dest("dist"));
