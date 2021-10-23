@@ -1,15 +1,15 @@
-> The entry point of the entire application is the router which should be installed in `app.mjs`
+> The entry point of the entire application is in `app.mjs`
 
 ### Import the library
 ```javascript
-import { Olum } from "olum";
+import OlumRouter from "olum-router";
 ```
 
 ### Make instance
 ```javascript
-import { Olum } from "olum";
+import OlumRouter from "olum-router";
 
-new Olum();
+const router = new OlumRouter();
 ```
 
 ### Create config object
@@ -17,8 +17,6 @@ new Olum();
 const config = {
   mode: <String>,
   root: <String>,
-  el: <String>, 
-  prefix: <String>, 
   err: <String>,
   routes: <Array>,
 };
@@ -26,8 +24,6 @@ const config = {
 
 * __mode__: router mode, either `"hash"` or `"history"`
 * __root__: default route of the entire application, it's `"/"` by default, if you had a situation in which your app domain is `www.domainName.com/appName` then the root should equal your app name `"/appName"`
-* __el__: its value should be either `#id` or `.class` of the main html element wrapper that will hold the entire app markup, its `#app` by default
-* __prefix__: optional prefix for component name, if it's `"app"` then the component name will be `<App-Nav/>` if omitted then your component name will be just `<Nav/>`
 * __err__: optional path for not found page
 * __routes__: it's an Array of objects the holds the entire application routes 
 
@@ -52,7 +48,8 @@ const routes = [
 ### Gathering all together
 ```javascript
 // import library
-import { Olum } from "olum"; 
+import OlumRouter from "olum-router";
+
 // import components
 import Home from "views/home.js";
 import NotFound from "views/notfound.js";
@@ -67,23 +64,31 @@ const routes = [
 const config = {
   mode: "history", // history or hash
   root: "/", // default root path
-  el: "#app", // application element wrapper will be found in index.html
-  prefix: "app", // prefix components with app e.g. <App-Nav /> 
   err: "/404", // error or not found page must be the same path as error or not found component
   routes: routes, // routes array of object
 };
 
-new Olum(config); // making instance and passing config object to it
+const router = new OlumRouter(config); // making instance and passing config object to it
 ```
 
-### Simplifying the above code
+### Integrating olum-router with olum
+`app.mjs`
 ```javascript
-import { Olum } from "olum";
+import OlumRouter from "olum-router";
+import Olum from "olum";
 import Home from "views/home.js";
 import NotFound from "views/notfound.js";
 
 const routes = [{ path: "/404", comp: NotFound }, { path: "/", comp: Home }];
-new Olum({ mode: "history", root: "/", el: "#app", prefix: "app", err: "/404", routes});
+const router = new OlumRouter({mode: "history", root: "/", err: "/404", routes: routes}); 
+
+new Olum({prefix:"app"}).$("#root").use(router); // using router
+// new Olum({prefix:"app"}).$("#root").use(Home); // ignoring router and using Home component as root component
 ```
+
+* __$("#root")__: selects the html tag from `/path/to/src/public/index.html` that will hold the entire app markup and you can select by either `#id`, `.class` or `tagName`  
+* __prefix__: optional prefix for component name, if it's `"app"` then the component name will be `<App-Nav/>` if omitted then your component name will be just `<Nav/>`
+
+
 ### A faster way for generating router
 * Install [Olum Extension](https://marketplace.visualstudio.com/items?itemName=eissapk.olum) on `Visual Studio Code` and just type `olumr` and hit tab 

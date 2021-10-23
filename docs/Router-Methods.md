@@ -1,25 +1,28 @@
-> You can export an instance of Olum to use it later with other components and views
-
 ### Get current route
 > Get the current route by calling `getRoute` method
 
+> You need to install olum router first
+```bash
+npm install olum-router
+```
+
 ```javascript
-import { Olum } from "olum";
+import OlumRouter from "olum-router";
 
-const olum = new Olum(configObject);
+const router = new OlumRouter(configObject);
 
-olum.getRoute();
+router.getRoute();
 ```
 
 ### Navigate to a certain route
 > We do navigate here to `"/about"` page by passing it's path to `navigate` method
 
 ```javascript
-import { Olum } from "olum";
+import OlumRouter from "olum-router";
 
-const olum = new Olum(configObject);
+const router = new OlumRouter(configObject);
 
-olum.navigate("/about");
+router.navigate("/about");
 ```
 
 ### Navigate by HTML attribute
@@ -36,14 +39,16 @@ olum.navigate("/about");
 ### Hint
 > The current route link has `.active` class name, so you can use this class later in styling
 
+> You need to give any children of a router link `<a to="/about">about</a>` a style of `pointer-events: none;` 
+
 ### Freeze & unfreeze router
 > In some cases you will be needing to stop your web app page from rendering if you pushed a route 
 
 ```javascript
-import { Olum } from "olum";
+import OlumRouter from "olum-router";
 
-const olum = new Olum(configObject);
+const router = new OlumRouter(configObject);
 
-olum.freeze(); // this method stops page rendering 
-olum.unfreeze(); // this method resets your app to the default 
+router.freeze(); // this method stops page rendering 
+router.unfreeze(); // this method resets your app to the default 
 ```

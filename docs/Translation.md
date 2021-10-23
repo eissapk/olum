@@ -1,4 +1,8 @@
-> Olumjs supports multi-language SPA
+> Olumjs supports multi-language SPA via `olum-helpers` package
+
+```bash
+npm install olum-helpers
+```
 
 ### Dictionaries
 > We can add dictionaries to `src/locales` directory
@@ -25,7 +29,7 @@ export default {
 > The whole setup of the translations will be in `src/app.mjs`
 
 ```javascript
-import { Localize } from "olum";
+import { Localize } from "olum-helpers";
 
 // importing dictionaries
 import en from "./locales/en.js";

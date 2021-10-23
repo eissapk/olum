@@ -1,5 +1,5 @@
 ```bash
 npm i -g olum-cli
 
-olum create my-project
+olum create project-name
 ```

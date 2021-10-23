@@ -1,4 +1,4 @@
-> Components must be under components directory of the project tree and they acutally are `html` files, each component includes 3 parts `template`, `style` & `script` tags
+> Components must be under `components` directory of the project tree and they acutally are `html` files, each component includes 3 parts `template`, `style` & `script` tags
 
 ### Template tag
 ```html

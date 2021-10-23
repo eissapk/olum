@@ -7,15 +7,6 @@
 
 <script>
   export default class HelloWorld {
-    data() {
-      return {
-        name: "HelloWorld",
-        template: this.template(),
-        style: this.style(),
-        render: this.render.bind(this),
-      };
-    }
-
     render() {
       console.log("HelloWorld");
     }

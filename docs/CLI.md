@@ -4,9 +4,9 @@
 npm i -g olum-cli
 ```
 
-### Create project
+### Create a project
 ```bash
-olum create my-project
+olum create project-name
 ```
 
 ### Run development server
@@ -14,7 +14,7 @@ olum create my-project
 npm run dev
 ```
 
-### Build for deployment
+### Build for production
 ```bash
 npm run build
 ```
@@ -24,3 +24,5 @@ npm run build
 `Do you want to catch all routes to fallback to root ?`</br>
 If you typed `yes` then you will need to add the desired routes separated by comma `e.g. about, contact, faq`</br>
 This option is for single page apps that use a host which supports only front-end technologies
+
+> Now you can export desktop app by following the cli questions

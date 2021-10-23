@@ -1,11 +1,11 @@
 > Instead of using javascript native long methods you can use these methods below
 
-`Now helpers are in a seperated package called olum-helpers, You need to install it via 'npm i olum-helpers' or use it via unpkg`
-
 ```html
+<!-- CDN -->
 <script src="https://unpkg.com/olum-helpers@latest/dist/olum-helpers.min.js"></script>
 ```
 ```javascript
+// ES6 Module 
 import { $, debug, setTemp, Service, Origin, Localize } from "olum-helpers";
 ```
 

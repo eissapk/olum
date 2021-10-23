@@ -4,11 +4,13 @@
 ```html
 <template>
   <div class="ComponentName">
+    height is ${height}
     width is ${this.width}
   </div>
 </template>
 
 <script>
+  let height = 100;
   export default class ComponentName {
     width = 50
     data() {
@@ -27,15 +29,21 @@
 
 <style lang="scss">
   .ComponentName {
+    heigth: ${height}px;
     width: ${this.width}px;
   }
 </style>
 ```
 * As you realized above we defined `width` property in the class of the script tag
-* Then we got access on `width` property in `<template>` & `<style>` tags through `${}` this is because all inner content of `<template>` & `<style>` tags are template literals
+* Then we got access on `width/height` property in `<template>` & `<style>` tags through `${}` this is because all inner content of `<template>` & `<style>` tags are template literals
 
 ### Dealing with assets
-> We handle assets as modules so in order to import a certain image we do the following
+> We handle assets as modules by default so in order to import a certain image we do the following
+
+> You can disable `assetsAsModule` option in the packge.json file add your assets paths as normal e.g `<img src="assets/foo.png"/>`
+
+> It's recommended to include your assets in `assets` folder inside `src` e.g. `path/to/my-project/src/assets`
+
 
 ```html
 <template>
