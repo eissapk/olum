@@ -44,16 +44,6 @@ export const api = new API();
   import { api } from "services/api.js"; // import the api service
   export default class One {
 
-    data() {
-      return {
-        name: "One",
-        components: {},
-        template: this.template(),
-        style: this.style(),
-        render: this.render.bind(this),
-      };
-    }
-
     render() {
       const form = document.querySelector(".One form");
       const input = document.querySelector(".One input");
@@ -93,16 +83,6 @@ export const api = new API();
 <script>
   import { api } from "services/api.js";
   export default class Two {
-
-    data() {
-      return {
-        name: "Two",
-        components: {},
-        template: this.template(),
-        style: this.style(),
-        render: this.render.bind(this),
-      };
-    }
 
     render() {
       // listen on the API service event which is "ApiDataLoaded" 

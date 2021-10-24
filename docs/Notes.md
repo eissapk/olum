@@ -13,16 +13,6 @@
   let height = 100;
   export default class ComponentName {
     width = 50
-    data() {
-      return {
-        name: "ComponentName",
-        components: {},
-        template: this.template(),
-        style: this.style(),
-        render: this.render.bind(this),
-      };
-    }
-
     render() {}
   }
 </script>
@@ -55,16 +45,6 @@
 <script>
   import image from "assets/logo.svg"; // import the image
   export default class ComponentName {
-    data() {
-      return {
-        name: "ComponentName",
-        components: {},
-        template: this.template(),
-        style: this.style(),
-        render: this.render.bind(this),
-      };
-    }
-
     render() {}
   }
 </script>

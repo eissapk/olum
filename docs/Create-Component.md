@@ -46,46 +46,12 @@
 </script>
 ```
 
-#### Add configuration to the class
-> Add `data` method which returns configuration object
-
-```html
-<script>
-  export default class Nav {
-    data() {
-      return {
-        name: "Nav",
-        components: {},
-        template: this.template(),
-        style: this.style(),
-        render: this.render.bind(this),
-      };
-    }
-  }
-</script>
-```
-* __name__: holds the class/component name
-* __components__: an object for registering other components in current class/component, we will explain this later
-* __template__: invokes template method and it links the `<template>` tag with current class
-* __style__: invokes style method and it links the `<style>` tag with current class
-* __render__: invokes render method that has the component logic
-
-
 #### Define render method
 > Write the component logic in render method
 
 ```html
 <script>
   export default class Nav {
-    data() {
-      return {
-        name: "Nav",
-        components: {},
-        template: this.template(),
-        style: this.style(),
-        render: this.render.bind(this),
-      };
-    }
 
     render() { 
       console.log("Hello World"); // Your logic goes here
