@@ -85,5 +85,22 @@
 </style>
 ```
 
+#### Extending style outside component file
+using `scss or sass`
+```html
+<style lang="scss">
+  @import "path/to/style.scss";
+</style>
+```
+
+using `css`
+```html
+<style>
+  @import "path/to/style.css";
+</style>
+```
+> Supports one level of import statement only which means that you can't import inside `path/to/style.scss` file
+
+
 ### A faster way for generating component
 * Install [Olum Extension](https://marketplace.visualstudio.com/items?itemName=eissapk.olum) on `Visual Studio Code` and just type `olumc` and hit tab 
