@@ -1,7 +1,9 @@
 > Suppose we have A parent and child components and we want to register the child in the parent
 
 ### Child component
-> We do export this child component to import it in parent component
+
+> We do export this child component to import it later in parent component
+
 ```html
 <template>
   <div class="Child">Hello from child component</div>
@@ -22,7 +24,8 @@
 ```
 
 ### Parent component
-> We register child in parnt as follows
+
+> We register child in parent as follows
 
 ```html
 <template>
@@ -33,7 +36,7 @@
 </template>
 
 <script>
-  import Child from "components/child.js";
+  import Child from "components/child.html";
   export default class Parent {
     render() {
       console.log("Hello from parent component");
@@ -46,5 +49,18 @@
   }
 </style>
 ```
-* You will realize that we imported child component and added the child markup placeholder as a tag `<Child />` and that's it!
-* Also we added `.js` instead of `.html` when importing child component that's because all components/views will be compiled from `HTML` file to `Javascript` file 
+
+- You will realize that we imported child component and added the child markup placeholder as a tag `<Child />` and that's it!
+
+> Hint
+* While importing component we can remove the extension or add it as `.html` or even as `.js`
+
+### Valid imports are as follows:
+
+```javascript
+import Child from "components/child";
+// or
+import Child from "components/child.html";
+// or
+import Child from "components/child.js";
+```

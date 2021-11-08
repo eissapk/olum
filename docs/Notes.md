@@ -58,6 +58,5 @@
 * As you saw above we import assets in script tag and passing it in `<template>` & `<style>` tags with template literals placeholder `${}`
 
 ### Don'ts
-* Don't invoke `data` method from inside `<template>` or `<style>` tags because it will lead to infinite loop just call any prop in `data` method directly so `this.style()` instead of `this.data().style` 
+* There is a hidden `olumCompData` function in every component class so don't invoke `olumCompData` method from inside `<template>` or `<style>` tags because it will lead to infinite loop just call any prop in `olumCompData` method directly so `this.style()` instead of `this.olumCompData().style` and `this.template()` instead of `this.olumCompData().template`, also you can access `template()` & `style()` methods from any tag (`<script>`, `<style>` or `<template>`) inside component file 
 * Don't remove `<style>` or `<template>` tag even if they are empty.
-* Don't add `.html` extension while importing `view/components` because html isn't a module so just add `.js` extension to all views/components whenever they location are.
