@@ -1,6 +1,6 @@
 /**
  * @name Olum.js
- * @version 0.2.1
+ * @version 0.2.2
  * @copyright 2021
  * @author Eissa Saber
  * @license MIT
@@ -111,11 +111,11 @@
             addProp(obj, "child", {});
             addProp(obj.child, "name", key);
             var instance = new comp.components[key]();
-            addProp(obj.child, "data", instance.data());
+            addProp(obj.child, "olumCompData", instance.olumCompData());
             compsArr.push(obj);
 
-            if (obj.hasOwnProperty("child") && obj.child.hasOwnProperty("data")) {
-              var nextEntry = obj.child.data;
+            if (obj.hasOwnProperty("child") && obj.child.hasOwnProperty("olumCompData")) {
+              var nextEntry = obj.child.olumCompData;
               recursive(nextEntry);
             }
           }
@@ -149,11 +149,11 @@
       // children 
       if (isFullArr(compsArr)) {
         for(var i = 0; i < compsArr.length; i++) {
-          var data = compsArr[i].child.data;
-          var html = data.template || "";
-          var css = data.style || "";
-          var js = data.render || null;
-          var name = prefix ? prefix + "-" + data.name : data.name;
+          var olumCompData = compsArr[i].child.olumCompData;
+          var html = olumCompData.template || "";
+          var css = olumCompData.style || "";
+          var js = olumCompData.render || null;
+          var name = prefix ? prefix + "-" + olumCompData.name : olumCompData.name;
           var regex = new RegExp("<(" + name + "\\s{0,})\\/>", "gi"); // detect components e.g. <App-AddTodo /> or <AddTodo />
 
           template = template.replace(regex, html);
@@ -178,15 +178,15 @@
 
       // children
       for(var i = 0; i < compsArr.length; i++) {
-        var name = compsArr[i].child.data.name || "undefined";
-        if (compsArr[i].child && compsArr[i].child.data && compsArr[i].child.data.hasOwnProperty("template")) {
-          var data = compsArr[i].child.data;
+        var name = compsArr[i].child.olumCompData.name || "undefined";
+        if (compsArr[i].child && compsArr[i].child.olumCompData && compsArr[i].child.olumCompData.hasOwnProperty("template")) {
+          var olumCompData = compsArr[i].child.olumCompData;
           // clean
-          data.template = data.template.replace(compAttrRegex, "");
+          olumCompData.template = olumCompData.template.replace(compAttrRegex, "");
           // labeling
-          var compWrapper = data.template.match(openingSelfClosingTagRegex);
+          var compWrapper = olumCompData.template.match(openingSelfClosingTagRegex);
           if (isFullArr(compWrapper)) {
-            data.template = data.template.replace(compWrapper[0], compWrapper[0].replace(greaterCharRegex, " olum-component='"+name+"'>"));
+            olumCompData.template = olumCompData.template.replace(compWrapper[0], compWrapper[0].replace(greaterCharRegex, " olum-component='"+name+"'>"));
           }
         }
       }
@@ -218,7 +218,7 @@
     function useComponent() {
       debug("use component");
       var view = new which.cb();
-      var entry = view.data();
+      var entry = view.olumCompData();
       var compsArr = buildTree(entry);
       // labeling components
       var label = isDev() ? labelView(entry, compsArr) : { entry: entry, compsArr: compsArr };
