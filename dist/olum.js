@@ -1,6 +1,6 @@
 /**
  * @name Olum.js
- * @version 0.2.2
+ * @version 0.2.3
  * @copyright 2021
  * @author Eissa Saber
  * @license MIT
@@ -81,15 +81,8 @@
         var delimiter;
         if (selector.indexOf(".") !== -1) delimiter = ".";
         else if (selector.indexOf("#") !== -1) delimiter = "#";
-
-        // start devtool
-        if (isDev()) {
-          rootCompName = selector.replace(/\#|\./, "").cap();
-          global.olumDevtool = { rootCompName: rootCompName, selector: selector };
-        }
-        // end devtool
-
         selector = selector.replace(/\#|\./, "");
+        rootCompName = selector.cap();
         rootElm =
           delimiter === "." ? document.getElementsByClassName(selector)[0] :
           delimiter === "#" ? document.getElementById(selector) :
@@ -201,7 +194,7 @@
         if (isFullArr(compWrapper)) {
           entry.template = entry.template.replace(
             compWrapper[0],
-            compWrapper[0].replace(greaterCharRegex, " olum-component='"+name+"' router-view='"+name+"'>")
+            compWrapper[0].replace(greaterCharRegex, " olum-component='"+name+"' olum-view='"+name+"'>")
           );
         }
       }
