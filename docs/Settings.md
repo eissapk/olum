@@ -5,8 +5,6 @@
 
 ```json
 "olum": {
-    "dest": "build", // name of the final build folder for deployment
-    "src": ".pre-build", // name of the source folder that is used by webpack bundler
     "port": 8000, // development server port
     "livereload": true, // browser hot reload
     "fallback": "/", // catch all routes to fallback to root in development mode only
@@ -14,7 +12,7 @@
     "hash": 5, // level of encryping assets
     "title": "Olum App", // application <title> tag content
     "polyfill": false,  // enable/disable polyfill
-    "assetAsModule": true, // enable/disable assest as modules
+    "assetAsModule": true, // enable/disable assest as modules e.g. import img from "path/to/img.png"
     "https": false, // enable/disable https protocol
     "favicon": "./public/favicon.png", // path to application favicon
     "template": "./public/index.html", // path to application index.html
