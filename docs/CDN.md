@@ -1,4 +1,4 @@
-> We can use olum without the CLI tool but you will be needing to setup a `bundler` such as webpack on your own once you decide to deploy your app
+<!-- > We can use olum without the CLI tool but you will be needing to setup a `bundler` such as webpack on your own once you decide to deploy your app
 
 ### Download the library from unpkg
 [unpkg](https://unpkg.com/olum@0.0.7/dist/olum.js)
@@ -79,4 +79,4 @@ export default class Home {
     console.log("Home");
   }
 }
-```
+``` -->

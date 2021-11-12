@@ -19,6 +19,18 @@ npm run dev
 npm run build
 ```
 
+### Generate a component
+```bash
+olum generate -c home
+```
+> Creates component file with the name of 'home' in the given path, `generate` keyword can be replaced with `g`, and `-c` means component e.g. `olum g -c ./src/foo`
+
+### Generate a service
+```bash
+olum generate -s api
+```
+> Creates service file with the name of 'api' in the given path, `generate` keyword can be replaced with `g`, and `-s` means service e.g. `olum g -s ./src/services/api`
+
 ### Hint
 > After building your app for deployment you will be asked </br>
 `Do you want to catch all routes to fallback to root ?`</br>
