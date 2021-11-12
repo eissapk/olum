@@ -3,7 +3,7 @@
 
 > You will find these settings in the `package.json` file under `olum` property
 
-```json
+```javascript
 "olum": {
     "port": 8000, // development server port
     "livereload": true, // browser hot reload
