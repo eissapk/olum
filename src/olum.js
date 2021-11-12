@@ -1,6 +1,6 @@
 /**
  * @name Olum.js
- * @version 0.2.3
+ * @version 0.2.4
  * @copyright 2021
  * @author Eissa Saber
  * @license MIT
@@ -97,13 +97,17 @@
       var compsArr = [];
 
       function recursive(comp) {
-        if (comp.hasOwnProperty("components") && isFullObj(comp.components)) {
-          for (var key in comp.components) {
+        if (comp.hasOwnProperty("components") && isFullArr(comp.components)) {
+          
+          for (var i = 0; i < comp.components.length; i++) {
+            
+            var item = comp.components[i];
+            var key = Object.keys(item)[0];
             var obj = {};
             addProp(obj, "parent", comp.name);
             addProp(obj, "child", {});
             addProp(obj.child, "name", key);
-            var instance = new comp.components[key]();
+            var instance = new item[key]();
             addProp(obj.child, "olumCompData", instance.olumCompData());
             compsArr.push(obj);
 
@@ -111,7 +115,9 @@
               var nextEntry = obj.child.olumCompData;
               recursive(nextEntry);
             }
+            
           }
+          
         }
       };
       recursive(entry);

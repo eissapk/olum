@@ -7,11 +7,11 @@ const pkgJSON = require("./package.json");
 
 const comment = 
 `/**
-* @name Olum.js
+* @name ${pkgJSON.name}
 * @version ${pkgJSON.version}
 * @copyright 2021
-* @author Eissa Saber
-* @license MIT
+* @author ${pkgJSON.author}
+* @license ${pkgJSON.license}
 */
 `;
 
