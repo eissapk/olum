@@ -52,3 +52,32 @@ const router = new OlumRouter(configObject);
 router.freeze(); // this method stops page rendering 
 router.unfreeze(); // this method resets your app to the default 
 ```
+
+### Router parameters
+* params Configuration
+
+```javascript
+// router file
+import OlumRouter from "olum-router";
+import Card from "path/to/Card";
+
+const routes = [ { path: "/card/:id", comp: Card } ];
+const router = new OlumRouter({ routes });
+export default router;
+```
+
+#### Router link via HTML and JS
+```html
+<a to="/card/1">about</a> 
+```
+```javascript
+import router from "path/to/router/config/file.js";
+router.navigate("/card/1");
+```
+
+#### Retrieving parameter value while navigating to `/card/1` path
+```javascript
+import router from "path/to/router/config/file.js";
+const { id } = router.params; 
+console.log(id);
+```
